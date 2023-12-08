@@ -17,6 +17,8 @@ class TestDietOptions(unittest.TestCase):
         self.plan2 = planoptions.PlanOptions(175, 70, 30, "male", "invalid", "loss")#simulate when user inputs invalid activity level
         self.plan3 = planoptions.PlanOptions(175, 70, 30, "invalid", "high", "loss")#simulate when user inputs invalid gender
         self.plan4 = planoptions.PlanOptions(170, 70, 27, "female", "high", "invalid")#simulate when user inputs invalid weight goal
+        self.plan5 = planoptions.PlanOptions(150, 54, 40, "female", "moderate", "gain")
+        self.plan6 = planoptions.PlanOptions(180, 94, 35, "male", "low", "loss")
     
     def tearDown(self):
         pass
@@ -34,6 +36,8 @@ class TestDietOptions(unittest.TestCase):
         self.assertIsNone(self.plan2.calculate_tdee())
         self.plan4.calculate_bmr()
         self.assertEqual(self.plan4.calculate_tdee(), 2874.2402)
+        self.plan5.calculate_bmr()
+        self.assertEqual(self.plan5.calculate_tdee(), 1956.0411000000001)
     
     def test_calculate_target_cal(self):
         self.plan1.calculate_bmr()
@@ -42,6 +46,12 @@ class TestDietOptions(unittest.TestCase):
         self.plan4.calculate_bmr()
         self.plan4.calculate_tdee()
         self.assertIsNone(self.plan4.calculate_target_cal())
+        self.plan5.calculate_bmr()
+        self.plan5.calculate_tdee()
+        self.assertEqual(self.plan5.calculate_target_cal(), 2151.64521)
+        self.plan6.calculate_bmr()
+        self.plan6.calculate_tdee()
+        self.assertEqual(self.plan6.calculate_target_cal(), 2184.9318000000003)
 
 
 unittest.main(argv =[''], verbosity=2, exit=False)
