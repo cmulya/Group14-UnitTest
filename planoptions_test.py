@@ -1,7 +1,7 @@
 import unittest
 from fitness_diet_tracker.diet_package import planoptions
 
-class TestDietOptions(unittest.TestCase):    
+class TestPlanOptions(unittest.TestCase):    
     @classmethod
     def setUpClass(cls):
         # Shared setup for the entire test class
