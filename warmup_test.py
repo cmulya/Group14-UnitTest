@@ -16,6 +16,12 @@ class TestWarmup(unittest.TestCase):
         self.strength = warmup.warmUp("strength")
         self.body_weight = warmup.warmUp("body weight")
         self.invalid_input = warmup.warmUp("invalid")
+        
+        self.youtube_invalid_warmup = warmup.warmUp("invalid")
+        self.youtube_athlete_warmup = warmup.warmUp("athlete")
+        self.youtube_strength_warmup = warmup.warmUp("strength")
+        self.youtube_body_weight_warmup = warmup.warmUp("body weight")
+        
     
     @classmethod
     def setUpClass(cls):
@@ -46,6 +52,22 @@ class TestWarmup(unittest.TestCase):
         self.assertIsNotNone(self.body_weight.body_weight_warmup())
         self.assertNotIsInstance(self.body_weight.body_weight_warmup(), int)
 
+    def test_youtube_links_warmup(self):
+        self.assertEqual(self.youtube_invalid_warmup.youtube_links_warmup(), None)
+        
+        seated_hamstring_stretch = "https://www.youtube.com/watch?v=HFPbNaMzW3M"
+        across_body_arm_stretch = "https://www.youtube.com/watch?v=-1K0m5ywRcY"
+        self.assertEqual(self.youtube_athlete_warmup.youtube_links_warmup(), f'{seated_hamstring_stretch}\n{across_body_arm_stretch}')
+        
+        overhead_tricep_stretch = "https://www.youtube.com/watch?v=Uvk1Y8O1_yM"
+        standing_hamstring_stretch = "https://www.youtube.com/watch?v=LVY692zJK0A"
+        supine_twist_back_stretch = "https://www.youtube.com/watch?v=mNdJti7ZwKI"
+        self.assertEqual(self.youtube_strength_warmup.youtube_links_warmup(), f'{overhead_tricep_stretch}\n{standing_hamstring_stretch}\n{supine_twist_back_stretch}')
+        
+        cobra_stretch = "https://www.youtube.com/watch?v=JDcdhTuycOI"
+        bent_arm_wall_stretch = "https://www.youtube.com/watch?v=3MuMu3Q4r68"
+        standing_quadriceps_stretch = "https://www.youtube.com/watch?v=g4v_QK893eI"
+        self.assertEqual(self.youtube_body_weight_warmup.youtube_links_warmup(), f'{cobra_stretch}\n{bent_arm_wall_stretch}\n{standing_quadriceps_stretch}')
         
 
 unittest.main(argv =[''], verbosity=2, exit=False)
