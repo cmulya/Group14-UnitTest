@@ -50,8 +50,7 @@ class DietOptions(PlanOptions):
         }
 
         if protein_option not in recipes:
-            print("Invalid protein option for a vegan diet.")
-            return
+            return "Invalid protein option for a vegan diet."
 
         recipe = recipes[protein_option]
         target_calories = self.calculate_target_cal()
@@ -80,8 +79,7 @@ class DietOptions(PlanOptions):
         }
 
         if protein_option not in recipes:
-            print("Invalid protein option for a vegetarian diet.")
-            return
+            return "Invalid protein option for a vegetarian diet."
 
         recipe = recipes[protein_option]
         target_calories = self.calculate_target_cal()
@@ -110,8 +108,7 @@ class DietOptions(PlanOptions):
         }
         
         if protein_option not in recipes:
-            print("Invalid protein option for a meat diet.")
-            return
+            return "Invalid protein option for a meat diet."
 
         recipe = recipes[protein_option]
         target_calories = self.calculate_target_cal()
