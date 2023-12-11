@@ -8,6 +8,7 @@ folder_path = os.path.join(current_directory, folder_name)
 sys.path.append(folder_path)
 
 import unittest
+from unittest.mock import patch
 from fitness_diet_tracker.workout_plan import warmup
 
 class TestWarmup(unittest.TestCase):
@@ -34,25 +35,29 @@ class TestWarmup(unittest.TestCase):
     def tearDown(self):
         print("Teardown method for the Warmup Test class")
     
-    def test_athlete_warmup(self):
+    @patch('builtins.input', side_effect=["athlete"])
+    def test_athlete_warmup(self, mock_input):
         self.assertEqual(self.athlete.athlete_warmup(), 'Seated hamstring stretch (2 repetitions)\nLight jogging (5 mins)\nAcross Body arm stretch (2 repetitions)\nPull-up bar hang (1 minute)')
         self.assertIsInstance(self.athlete.athlete_warmup(), str)
         self.assertIsNotNone(self.athlete.athlete_warmup())
         self.assertNotIsInstance(self.athlete.athlete_warmup(), int)
     
-    def test_strength_warmup(self):
+    @patch('builtins.input', side_effect=["strength"])
+    def test_strength_warmup(self, mock_input):
         self.assertEqual(self.strength.strength_warmup(), 'Overhead Tricep Stretch (2 repetitions)\nStanding hamstring stretch (2 repetitions)\nSupine Twist Back Stretch (2 repetitions)\nLightweight squats/deadlifts/bench press/curls')
         self.assertIsInstance(self.strength.strength_warmup(), str)
         self.assertIsNotNone(self.strength.strength_warmup())
         self.assertNotIsInstance(self.strength.strength_warmup(), int)
     
-    def test_bodyweight_warmup(self):
+    @patch('builtins.input', side_effect=["body weight"])
+    def test_bodyweight_warmup(self, mock_input):
         self.assertEqual(self.body_weight.body_weight_warmup(), 'Cobra Stretch (2 repetitions)\nBent arm wall stretch\nStanding quadriceps stretches (2 repetitions)\nIncline push-ups\nBodyweight squats')
         self.assertIsInstance(self.body_weight.body_weight_warmup(), str)
         self.assertIsNotNone(self.body_weight.body_weight_warmup())
         self.assertNotIsInstance(self.body_weight.body_weight_warmup(), int)
-
-    def test_youtube_links_warmup(self):
+    
+    @patch('builtins.input', side_effect=["invalid"])
+    def test_youtube_links_warmup(self, mock_input):
         self.assertEqual(self.youtube_invalid_warmup.youtube_links_warmup(), None)
         
         seated_hamstring_stretch = "https://www.youtube.com/watch?v=HFPbNaMzW3M"

@@ -1,2 +1,1 @@
-import sys
-sys.path
+from unittest.mock import patch
