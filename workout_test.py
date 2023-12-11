@@ -8,7 +8,7 @@ folder_path = os.path.join(current_directory, folder_name)
 sys.path.append(folder_path)
 
 import unittest
-from fitness_diet_tracker.workout_plan import warmup
+from unittest.mock import patch
 from fitness_diet_tracker.workout_plan import workout
 
 class TestWorkout(unittest.TestCase):
@@ -47,28 +47,32 @@ class TestWorkout(unittest.TestCase):
     def tearDown(self):
         print("Teardown method for the Warmup Test class")
     
-    def test_generate_intensity_plan(self):
+    @patch('builtins.input', side_effect=["athlete", 15])
+    def test_generate_intensity_plan(self, mock_input):
         self.assertEqual(self.athlete_workout_fifteen.generate_intensity_plan(), '3 sets of push press until failure\n3 sets of half squat jumps until failure\n3 sets of pull ups until failure\nAtleast 1 minute of rest between each set is recommended')
         self.assertEqual(self.athlete_workout_thirtyfive.generate_intensity_plan(), '4 sets of push press until failure\n4 sets of half squat jumps until failure\n4 sets of pull ups until failure\nAtleast 1.5 minute of rest between each set is recommended')
         self.assertEqual(self.athlete_workout_sixty.generate_intensity_plan(), '5 sets of push press until failure\n5 sets of half squat jumps until failure\n5 sets of pull ups until failure\nAtleast 1.5 minute of rest between each set is recommended')
         self.assertEqual(self.athlete_workout_sixty_two.generate_intensity_plan(), None)
         self.assertEqual(self.athlete_workout_negative.generate_intensity_plan(), None)
     
-    def test_generate_powerlifting_plan(self):
+    @patch('builtins.input', side_effect=["strength", 35])
+    def test_generate_powerlifting_plan(self, mock_input):
         self.assertEqual(self.powerlifting_workout_fifteen.generate_powerlifting_plan(), '2 sets of bench press until failure\n2 sets of barbell squats until failure\n2 sets of deadlifts until failure\nAtleast 2 minute of rest between each set is recommended')
         self.assertEqual(self.powerlifting_workout_thirtyfive.generate_powerlifting_plan(), '3 sets of bench press until failure\n3 sets of barbell squats until failure\n3 sets of deadlifts until failure\nAtleast 2 minute of rest between each set is recommended')
         self.assertEqual(self.powerlifting_workout_sixty.generate_powerlifting_plan(), '4 sets of bench press until failure\n4 sets of barbell squats until failure\n4 sets of deadlifts until failure\nAtleast 2.5 minute of rest between each set is recommended')
         self.assertEqual(self.powerlifting_workout_sixty_two.generate_powerlifting_plan(), None)
         self.assertEqual(self.powerlifting_workout_negative.generate_powerlifting_plan(), None)
     
-    def test_generate_calisthenics_plan(self):
+    @patch('builtins.input', side_effect=["body weight", 60])
+    def test_generate_calisthenics_plan(self, mock_input):
         self.assertEqual(self.calisthenics_workout_fifteen.generate_calisthenics_plan(), '3 sets of push ups until failure\n3 sets of pistol squats until failure\n3 sets of pull ups until failure\nAtleast 1 minute of rest between each set is recommended')
         self.assertEqual(self.calisthenics_workout_thirtyfive.generate_calisthenics_plan(), '4 sets of push ups until failure\n4 sets of pistol squats until failure\n4 sets of pull ups until failure\nAtleast 1.5 minute of rest between each set is recommended')
         self.assertEqual(self.calisthenics_workout_sixty.generate_calisthenics_plan(), '5 sets of push ups until failure\n5 sets of pistol squats until failure\n5 sets of pull ups until failure\nAtleast 1.5 minute of rest between each set is recommended')
         self.assertEqual(self.calisthenics_workout_sixty_two.generate_calisthenics_plan(), None)
         self.assertEqual(self.calisthenics_workout_negative.generate_calisthenics_plan(), None)
     
-    def test_youtube_links(self):
+    @patch('builtins.input', side_effect=["invalid", 32])
+    def test_youtube_links(self, mock_input):
         self.assertEqual(self.youtube_invalid_workout.youtube_links(), None)
         push_press = "https://www.youtube.com/watch?v=iaBVSJm78ko"
         squat_jumps = "https://www.youtube.com/watch?v=YGGq0AE5Uyc"
